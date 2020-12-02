@@ -86,4 +86,4 @@ if __name__ == "__main__":
           f"temperature is {highest_avg_temp}")
     print(f"Here is your worst route for your {len(cities)} day trip: {coldest_route}, with an average daily max temp "
           f"of {avg_lowest_temp}")
-    print(f'To max out your hotel budget, stay at these hotels: {best}, totaling ${max}')
+    print(f'To max out your hotel budget, stay at these hotels: {best}, totaling ${total_cost}')
