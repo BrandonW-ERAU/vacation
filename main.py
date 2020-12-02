@@ -26,9 +26,9 @@ hotel_rates = {
 
 def route_avg_temp(route):
     temp = 0
-    for c in range(len(route)):  # 0,1,2,3,4
+    for c in range(len(route)):
         city = route[c]
-        temp += city_temps[city][c]  # c = 0 => city_temps[Casa_Grande][0] === 76
+        temp += city_temps[city][c]
     avg_temp = temp/len(route)
     return avg_temp
 
