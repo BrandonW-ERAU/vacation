@@ -46,14 +46,15 @@ def coldest_route(all_routes):
 
 def warmest_route(all_routes):
     """Finds the route that would have the highest average daily temperature"""
-    highest_avg_temp = 0
+    temp = 0
     warmest_route = None
     for route in all_routes:
         avg_temp = route_avg_temp(route)
-        if highest_avg_temp < avg_temp:
-            highest_avg_temp = avg_temp
+        if temp < avg_temp:
+            temp = avg_temp
             warmest_route = route
-    return warmest_route, highest_avg_temp
+
+    return warmest_route, temp
 
 
 def cost_of_hotel_combo(hotel_combo):
@@ -86,8 +87,8 @@ if __name__ == "__main__":
 
     best_combo, total_cost = best_combo_of_hotels(combinations_with_replacement(hotels, len(cities)))
 
-    print(f"Here is your best route for your {len(cities)} day trip: {warmest_route} the average daily max "
+    print(f"Here is the best route for your {len(cities)} day trip: {warmest_route} the average daily max "
           f"temperature is {highest_avg_temp}")
-    print(f"Here is your worst route for your {len(cities)} day trip: {coldest_route}, with an average daily max temp "
+    print(f"Here is the worst route for your {len(cities)} day trip: {coldest_route}, with an average daily max temp "
           f"of {lowest_avg_temp}")
     print(f'To max out your hotel budget, stay at these hotels: {best_combo}, totaling ${total_cost}')
