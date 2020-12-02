@@ -88,7 +88,7 @@ if __name__ == "__main__":
     best_combo, total_cost = best_combo_of_hotels(combinations_with_replacement(hotels, len(cities)))
 
     print(f"Here is the best route for your {len(cities)} day trip: {warmest_route} the average daily max "
-          f"temperature is {highest_avg_temp}")
+          f"temperature is {highest_avg_temp}F")
     print(f"Here is the worst route for your {len(cities)} day trip: {coldest_route}, with an average daily max temp "
-          f"of {lowest_avg_temp}")
+          f"of {lowest_avg_temp}F")
     print(f'To max out your hotel budget, stay at these hotels: {best_combo}, totaling ${total_cost}')
