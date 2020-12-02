@@ -20,11 +20,11 @@ hotel_rates = {
     "Courtyard by Marriott": 229,
     "Residence Inn": 199,
     "Hampton Inn": 209
-
 }
 
 
 def route_avg_temp(route):
+    """Finds the average temp for a route. A route is a tuple from a list of permutations"""
     temp = 0
     for c in range(len(route)):
         city = route[c]
@@ -34,42 +34,46 @@ def route_avg_temp(route):
 
 
 def coldest_route(all_routes):
+    """Finds the route that would have the lowest average daily temperature"""
     temp = 0
     coldest_route = min(all_routes, key=lambda x: route_avg_temp(x))
     for cities in range(len(coldest_route)):
         city = coldest_route[cities]
         temp += city_temps[city][cities]
-    avg_lowest_temp = temp/len(coldest_route)
-    return coldest_route, avg_lowest_temp
+    lowest_avg_temp = temp/len(coldest_route)
+    return coldest_route, lowest_avg_temp
 
 
 def warmest_route(all_routes):
+    """Finds the route that would have the highest average daily temperature"""
     highest_avg_temp = 0
-    best_temp_route = None
+    warmest_route = None
     for route in all_routes:
         avg_temp = route_avg_temp(route)
         if highest_avg_temp < avg_temp:
             highest_avg_temp = avg_temp
-            best_temp_route = route
-    return best_temp_route, highest_avg_temp
+            warmest_route = route
+    return warmest_route, highest_avg_temp
 
 
-def cost_of_hotel_set(hotel_list_combo):
+def cost_of_hotel_combo(hotel_combo):
+    """Finds the total cost of a combination of hotels from the hotel_rates dictionary"""
     total_cost = 0
-    for hotel in hotel_list_combo:
+    for hotel in hotel_combo:
         total_cost += hotel_rates[hotel]
     return total_cost
 
 
-def best_set_of_hotels(all_hotel_sets):
+def best_combo_of_hotels(all_hotel_combos):
+    """Finds the combination of hotels that when their rates are added is closest to the hotel budget"""
     total_cost = 0
-    best_set = None
-    for hotel_Group in all_hotel_sets:
-        total_hotel_cost = cost_of_hotel_set(hotel_Group)
+    best_combo = None
+    for hotel_combo in all_hotel_combos:
+        total_hotel_cost = cost_of_hotel_combo(hotel_combo)
         if total_cost < total_hotel_cost <= HOTEL_BUDGET:
             total_cost = total_hotel_cost
-            best_set = hotel_Group
-    return best_set, total_cost
+            best_combo = hotel_combo
+    return best_combo, total_cost
 
 
 if __name__ == "__main__":
@@ -77,13 +81,13 @@ if __name__ == "__main__":
     cities = list(city_temps.keys())
     hotels = list(hotel_rates.keys())
 
-    best_temp_route, highest_avg_temp = warmest_route(permutations(cities))
-    coldest_route, avg_lowest_temp = coldest_route(permutations(cities))
+    warmest_route, highest_avg_temp = warmest_route(permutations(cities))
+    coldest_route, lowest_avg_temp = coldest_route(permutations(cities))
 
-    best, total_cost = best_set_of_hotels(combinations_with_replacement(hotels, len(cities)))
+    best_combo, total_cost = best_combo_of_hotels(combinations_with_replacement(hotels, len(cities)))
 
-    print(f"Here is your best route for your {len(cities)} day trip: {best_temp_route} the average daily max "
+    print(f"Here is your best route for your {len(cities)} day trip: {warmest_route} the average daily max "
           f"temperature is {highest_avg_temp}")
     print(f"Here is your worst route for your {len(cities)} day trip: {coldest_route}, with an average daily max temp "
-          f"of {avg_lowest_temp}")
-    print(f'To max out your hotel budget, stay at these hotels: {best}, totaling ${total_cost}')
+          f"of {lowest_avg_temp}")
+    print(f'To max out your hotel budget, stay at these hotels: {best_combo}, totaling ${total_cost}')
